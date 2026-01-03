@@ -1,6 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../../../../core/platform/platform_channels.dart';
 
 /// DataSource para notificaciones usando Platform Channel
 /// 
@@ -19,7 +19,7 @@ abstract class NotificationDataSource {
 
 class NotificationDataSourceImpl implements NotificationDataSource {
   final MethodChannel _channel = const MethodChannel(
-    PlatformChannels.notifications
+    'com.tuinstituto.fitness/notifications'
   );
 
   @override
@@ -27,7 +27,7 @@ class NotificationDataSourceImpl implements NotificationDataSource {
     try {
       await _channel.invokeMethod('initialize');
     } on PlatformException catch (e) {
-      print('Error inicializando notificaciones: ${e.message}');
+      debugPrint('Error inicializando notificaciones: ${e.message}');
     }
   }
 
@@ -54,7 +54,7 @@ class NotificationDataSourceImpl implements NotificationDataSource {
         'channelId': channelId ?? 'fitness_tracker_channel',
       });
     } on PlatformException catch (e) {
-      print('Error mostrando notificación: ${e.message}');
+      debugPrint('Error mostrando notificación: ${e.message}');
     }
   }
 }

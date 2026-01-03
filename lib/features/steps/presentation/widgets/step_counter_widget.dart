@@ -90,7 +90,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget> {
         }
       },
       onError: (error) {
-        print('Error en stream: $error');
+        debugPrint('Error en stream: $error');
       },
     );
 
@@ -357,7 +357,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withAlpha((0.1 * 255).round()),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

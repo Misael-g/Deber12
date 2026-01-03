@@ -45,7 +45,7 @@ dependencies:
   # Manejo de permisos
   permission_handler: ^11.0.1
 
-  # NUEVO: Notificaciones locales
+  
   flutter_local_notifications: ^17.0.0
   
   # ═══════════════════════════════════════════════════

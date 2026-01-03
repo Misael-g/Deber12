@@ -76,7 +76,7 @@ class _RouteMapWidgetState extends State<RouteMapWidget> {
 
     _subscription = _dataSource.locationStream.listen(
       (point) {
-        print('📍 GPS: ${point.latitude}, ${point.longitude}, acc=${point.accuracy}m');
+        debugPrint('📍 GPS: ${point.latitude}, ${point.longitude}, acc=${point.accuracy}m');
 
         if (_route.points.isEmpty) {
           setState(() {
@@ -96,7 +96,7 @@ class _RouteMapWidgetState extends State<RouteMapWidget> {
         }
       },
       onError: (error) {
-        print('❌ GPS Error: $error');
+        debugPrint('❌ GPS Error: $error');
         setState(() {
           _statusMessage = 'Error: $error';
         });
@@ -204,7 +204,7 @@ class _RouteMapWidgetState extends State<RouteMapWidget> {
                 ),
                 _buildMetric(
                   icon: Icons.local_fire_department,
-                  value: '${_route.estimatedCalories.toStringAsFixed(0)}',
+                  value: _route.estimatedCalories.toStringAsFixed(0),
                   label: 'Calorías',
                 ),
               ],
@@ -282,7 +282,7 @@ class RoutePainter extends CustomPainter {
       if (point.longitude > maxLon) maxLon = point.longitude;
     }
 
-    final padding = 20.0;
+    const padding = 20.0;
     final drawWidth = size.width - padding * 2;
     final drawHeight = size.height - padding * 2;
 

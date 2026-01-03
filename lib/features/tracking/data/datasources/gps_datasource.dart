@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../domain/entities/location_point.dart';
 
@@ -18,8 +19,11 @@ class GpsDataSourceImpl implements GpsDataSource {
       if (!hasPermission) return null;
 
       final pos = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best,
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.best,
+        ),
       );
+
 
       return LocationPoint(
         latitude: pos.latitude,
@@ -30,14 +34,14 @@ class GpsDataSourceImpl implements GpsDataSource {
         timestamp: pos.timestamp,
       );
     } catch (e) {
-      print('Error obteniendo ubicación: $e');
+      debugPrint('Error obteniendo ubicación: $e');
       return null;
     }
   }
 
   @override
   Stream<LocationPoint> get locationStream {
-    final settings = const LocationSettings(
+    const settings = LocationSettings(
       accuracy: LocationAccuracy.best,
       distanceFilter: 0,
     );
@@ -72,17 +76,18 @@ class GpsDataSourceImpl implements GpsDataSource {
       }
       return permission == LocationPermission.always || permission == LocationPermission.whileInUse;
     } catch (e) {
-      print('Error solicitando permisos de ubicación: $e');
+      debugPrint('Error solicitando permisos de ubicación: $e');
       return false;
     }
   }
 
   /// Abrir ajustes de ubicación (usado por la UI para invitar al usuario)
+  @override
   Future<void> openLocationSettings() async {
     try {
       await Geolocator.openLocationSettings();
     } catch (e) {
-      print('Error abriendo ajustes de ubicación: $e');
+      debugPrint('Error abriendo ajustes de ubicación: $e');
     }
   }
 }
