@@ -47,6 +47,19 @@ dependencies:
 
   # NUEVO: Notificaciones locales
   flutter_local_notifications: ^17.0.0
+  
+  # ═══════════════════════════════════════════════════
+  # NUEVOS PLUGINS (Reemplazan Platform Channels)
+  # ═══════════════════════════════════════════════════
+  
+  # Autenticación biométrica (huella, Face ID)
+  local_auth: ^2.3.0
+  
+  # GPS y ubicación
+  geolocator: ^13.0.2
+  
+  # Sensores (acelerómetro, giroscopio, etc)
+  sensors_plus: ^6.0.1
 
 dev_dependencies:
   flutter_test:

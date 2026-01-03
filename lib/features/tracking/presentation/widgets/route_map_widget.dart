@@ -46,6 +46,31 @@ class _RouteMapWidgetState extends State<RouteMapWidget> {
       setState(() {
         _statusMessage = 'Activa el GPS';
       });
+
+      // Mostrar diálogo para abrir ajustes de ubicación
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('GPS desactivado'),
+            content: const Text('Activa el GPS o abre los ajustes para habilitarlo.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: const Text('Cancelar'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(ctx).pop();
+                  await _dataSource.openLocationSettings();
+                },
+                child: const Text('Abrir ajustes'),
+              ),
+            ],
+          ),
+        );
+      }
+
       return;
     }
 
