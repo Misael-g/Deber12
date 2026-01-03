@@ -11,6 +11,19 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(":app")
+
+    project.configurations.all {
+        resolutionStrategy {
+            // Force older byte-buddy and mockito versions so Jetifier can process them
+            // and avoid Unsupported class file major version 68 (Java 24) during transforms.
+            force 'net.bytebuddy:byte-buddy:1.12.22'
+            force 'net.bytebuddy:byte-buddy-agent:1.12.22'
+            force 'org.mockito:mockito-core:5.3.1'
+            // Force a BouncyCastle version compatible with Java 17 (avoids class file major v65)
+            // 1.77 is present in local Gradle cache and is compiled for an older Java version.
+            force 'org.bouncycastle:bcprov-jdk18on:1.77'
+        }
+    }
 }
 
 tasks.register("clean", Delete) {
